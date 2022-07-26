@@ -1,0 +1,76 @@
+:root {
+    /** COLOR PALETTE **/
+    --color-green: #1ED860;
+    --color-dark: #1E1E1E;
+    --color-light: #EBEBEB;
+}
+/* HOW TO USE:
+item {
+  color: var(color-dark);
+}*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    /* min-height: 100vh; */
+    /* background-image: url(../assets/img/background.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed; */
+    background: url(../assets/img/background.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+.ff-anton{
+font-family: 'Anton', sans-serif;
+}
+.ff-fira{
+font-family: 'Fira Sans', sans-serif;
+color: var(--color-light);
+}
+.c-green{
+    color: var(--color-green);
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 230px 0;/* mientras tanto */
+}
+/* HOME VIEW */
+.header h1{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.fs-h2{
+    font-size: 48px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+.fs-pp{
+    margin: 0 auto;
+    font-size: 26px;
+    text-align: center;
+}
+.inputs{
+    outline: 0;
+    border: 3px solid var(--color-green);
+    padding: 8px 8px;
+    background-color: var(--color-dark);
+}
+.inputs::placeholder{
+    color: var(--color-light);
+}
+.btn-search{
+    outline: 0;
+    border: 0;
+    padding: 8px 8px;
+    background-color: var(--color-green);
+    height: 38px;
+}
+.search-container{
+    margin-top: 12px;
+    text-align: center;
+}
+/*ARTIST VIEW */

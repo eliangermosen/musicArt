@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -10,13 +10,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fira+Sans&display=swap" rel="stylesheet">
     <!-- stylesheet -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/styles.css">
     <!-- ICON -->
     <link rel="shortcut icon" href="assets/favicon.svg" type="image/x-icon">
     <title>MusicArt</title>
 </head>
 
 <body>
+    <header class="header">
+        <h1 class="ff-anton c-green">MusicArt</h1>
+    </header>
+    <main class="container">
+        <section class="group">
+            <h2 class="ff-anton c-green fs-h2">WHICH ARTIST AND SONG WOULD YOU LIKE TO SEARCH?</h2>
+            <p class="ff-fira fs-pp">You can find the song of your favorite artist</p>
+            <form id="song-search" class="search-container">
+                <input type="text" name="artist" placeholder="Name Artist" class="ff-fira inputs" required>
+                <input type="text" name="song" placeholder="Name Song" class="ff-fira inputs" required>
+                <button type="submit" class="btn-search">Send</button>
+            </form>
+        </section>
+    </main>
     <script src="js/app.js"></script>
 </body>
 

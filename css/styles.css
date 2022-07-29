@@ -26,6 +26,10 @@ body{
     background: var(--color-green);/*Color naranja para el fondo seleccionado*/
     color: var(--color-light);/* Color blanco para el texto seleccionado */
 }
+main{
+    width: 90%;
+    margin: 0 auto;
+}
 .ff-anton{
 font-family: 'Anton', sans-serif;
 }
@@ -40,7 +44,7 @@ color: var(--color-light);
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 230px 0;/* mientras tanto */
+    padding: 230px 0;/* mientras tanto */
 }
 /* HOME VIEW */
 .header h1{
@@ -80,8 +84,17 @@ color: var(--color-light);
 .musicart{
     cursor: pointer;
 }
+.container-git{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+.container-git img{
+    width: 40px;
+    cursor: pointer;
+}
 /*ARTIST VIEW */
-img {
+figure img{
     max-width: 100%;
     height: auto;
     border: 4px solid var(--color-green);
@@ -96,6 +109,7 @@ img {
 }
 .space-letters{
     white-space: pre-wrap;
+    padding-bottom: 30px;
 }
 main .result{
     margin: 0 auto;
@@ -107,16 +121,45 @@ main .content{
 .center{
     text-align: center;
 }
+blockquote{
+    padding-top: 30px;
+}
 /* Cuando la minima anchura sea 800px se ejecuta esto */
 @media screen and (min-width: 800px) {
     main .content{
         flex-direction: row;
     }
-
-    /* a los hijos de main flex basis determina el tamano 
-            del elemento felxbox hijo tenga el 50%*/
+    /* a los hijos de main flex basis determina el tamano del elemento felxbox hijo tenga el 50%*/
     main .content>* {
         padding: 1rem;
         flex-basis: 50%;
+    }
+}
+/* RESPONSIVE */
+/* si la ventana del navegador es 768px o menos se ejecutara esto */
+@media screen and (max-width: 768px) {
+}
+/* si la ventana del navegador es 600px o menos se ejecutara esto */
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 150px 0;
+    }
+    .search-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        align-items: center;
+    }
+    .inputs {
+        width: 300px;
+    }
+    .btn-search {
+        width: 100px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .container {
+        padding: 50px 0;
     }
 }

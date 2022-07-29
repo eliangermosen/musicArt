@@ -36,12 +36,12 @@ const allData = async () => {
         songApi = `https://api.lyrics.ovh/v1/${artist}/${song}`;
 
         let artistFetch = fetch(artistApi),
-            // songFetch = fetch(songApi),
-            // [artistRes, songRes] = await Promise.all([artistFetch, songFetch]);
-            [artistRes] = await Promise.all([artistFetch]);
+            songFetch = fetch(songApi),
+            [artistRes, songRes] = await Promise.all([artistFetch, songFetch]);
+            //[artistRes] = await Promise.all([artistFetch]);
 
         artistData = await artistRes.json(),
-        // songData = await songRes.json();
+        songData = await songRes.json();
 
         console.log(artistData, songData);
 
@@ -66,16 +66,19 @@ const allData = async () => {
             <h2 class="ff-anton artist-title">${art.strArtist.toUpperCase()}</h2>
             <p class="ff-fira genre">${art.strGenre}</p>
             </div>
+            <figure>
             <img src="${art.strArtistThumb}" alt="Imagen de ${art.strArtist}" class="artist-img">
+            </figure>
             <p class="space-letters ff-fira">${art.strBiographyEN}</p>
             `;
             /* SONG */
-            /*$songTemplate = `
-            <h2 class="ff-anton artist-title">${song.toUpperCase()}</h2>
+            $songTemplate = `
+            <h2 class="ff-anton artist-title center">${song.toUpperCase()}</h2>
             <blockquote class="space-letters ff-fira">${songData.lyrics}</blockquote>
-            `;*/
+            `;
             console.log("else");
-            localStorage.setItem("artInfo", $artistTemplate)
+            localStorage.setItem("artInfo", $artistTemplate);
+            localStorage.setItem("sngInfo", $songTemplate);
             console.log($artistTemplate);
             // probando();
             // console.log(location);
@@ -85,7 +88,7 @@ const allData = async () => {
         ////$loader.style.display = "none";
         console.log(localStorage.getItem("artInfo"));
         $artist.innerHTML = localStorage.getItem("artInfo");
-        // $song.innerHTML = $songTemplate;
+        $song.innerHTML = localStorage.getItem("sngInfo");
     } catch (err) {
         console.log(err);
         let message = err.statusText || "Ocurrio un ERROR";
@@ -97,6 +100,7 @@ const allData = async () => {
 
 const probando = () => {
     $artist.innerHTML = localStorage.getItem("artInfo");
+    $song.innerHTML = localStorage.getItem("sngInfo");
 }
 
 if($artist){

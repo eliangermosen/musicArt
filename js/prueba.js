@@ -48,30 +48,28 @@ const allData = async () => {
         
         if (artistData.artists === null) {
             //// $artistTemplate = `<h2>No existe el interprete <mark>${artist}</mark></h2>`;
-            //$error = `<h2>No existe el interprete <mark>${artist}</mark></h2>`;
+            // $error.innerHTML = `<p>No existe el interprete <span>${artist}</span></p>`;
+            $error.innerHTML = `<h2>No existe el interprete <mark>${artist}</mark></h2>`;
             console.log("if (artistData.artists === null)");
         } 
         else if(songData.error){
             //// $songTemplate = `<h2>No existe la cancion <mark>${song}</mark></h2>`;
-            //$error = `<h2>No existe la cancion <mark>${song}</mark></h2>`;
+            //$error.innerHTML = `<h2>No existe la cancion <mark>${song}</mark></h2>`;
             console.log("else if(songData.error)");
         } else {
             /* ARTIST */
             //solo el primer resultado del arreglo
             let art = artistData.artists[0];
             $artistTemplate = `
-            <h2>${art.strArtist}</h2>
-            <img src="${art.strArtistThumb}" alt="Imagen de ${art.strArtist}">
-            <p>${art.intBornYear} - ${(art.intDiedYear || "Presente")}</p>
-            <p>${art.strCountry} - ${art.strCountryCode}</p>
-            <p>${art.strGenre} - ${art.strStyle}</p>
-            <a href="http://${art.strWebsite}" target="_blank">Sitio Web</a>
-            <p>${art.strBiographyEN}</p>
+            <h2 class="ff-anton artist-title">${art.strArtist.toUpperCase()}</h2>
+            <p class="ff-fira genre">${art.strGenre}</p>
+            <img src="${art.strArtistThumb}" alt="Imagen de ${art.strArtist}" class="artist-img">
+            <p class="biography ff-fira">${art.strBiographyEN}</p>
             `;
             /* SONG */
             /*$songTemplate = `
-            <h2>${song.toUpperCase()}</h2>
-            <blockquote>${songData.lyrics}</blockquote>
+            <h2 class="song-title">${song.toUpperCase()}</h2>
+            <blockquote class="song-lyrics">${songData.lyrics}</blockquote>
             `;*/
             console.log("else");
             localStorage.setItem("artInfo", $artistTemplate)
@@ -88,8 +86,9 @@ const allData = async () => {
     } catch (err) {
         console.log(err);
         let message = err.statusText || "Ocurrio un ERROR";
-        $error.innerHTML = `<p>ERROR ${err.status}: ${message}</p>`;
+        //$error.innerHTML = `<p>ERROR ${err.status}: ${message}</p>`;
         // $loader.style.display = "none"
+        // localStorage.clear();
     }
 }
 

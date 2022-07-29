@@ -1,4 +1,5 @@
 const d = document,
+    $home = d.querySelector(".musicart")
     $form = d.getElementById("song-search"),
     $loader = d.querySelector(".loader"),
     $error = d.querySelector(".error"),
@@ -12,144 +13,89 @@ let artist = null,
     $songTemplate = "",
     artistApi = "",
     songApi = "",
-    artistData = null,
-    songData = null;
-
-// localStorage.setItem("arti", artist)
-// localStorage.setItem("son", song)
+    artistData = [],
+    songData = [];
 
 if($form){
     $form.addEventListener("submit", e => {
-        //siempre que queramos ejecutar programacion asincrona debemos tener un prevent default
         e.preventDefault();
-    
+
         artist = e.target.artist.value.toLowerCase();
         song = e.target.song.value.toLowerCase();
-        /*localStorage.setItem("arti", e.target.artist.value.toLowerCase());
-        localStorage.setItem("son", e.target.song.value.toLowerCase());*/
 
-        // window.location = "/music-art.html";
-    
         console.log(artist , song);
-        // console.log(localStorage.getItem("arti"));
-        // console.log(localStorage.getItem("son"));
 
-        // window.location = "/music-art.html";
-    
         allData();
     });
 }
 
-// const allData = async (artist,song) =>{
-//     try {
-        
-//     } catch (err) {
-//         console.log(err);
-//         let message = err.statusText || "Ocurrio un ERROR";
-//         $error.innerHTML = `<p>ERROR ${err.status}: ${message}</p>`;
-//         //este $loader.style.display = "none"
-//     }
-// };
-
 const allData = async () => {
-    // console.log(art, sng);
-    console.log(artist , song);
-
-    /*console.log(localStorage.getItem("arti"));
-    console.log(localStorage.getItem("son"));
-    let art = localStorage.getItem("arti"),
-        sng = localStorage.getItem("son");*/
-    
-    // window.location = "/music-art.html";
     try {
-        //este $loader.style.display = "block";
-
-        //con el e.target. si los elemento del formulario tienen 
-        //atributo name puedo acceder a ese nombre
-        // let artist = e.target.artist.value.toLowerCase(),
-        //     song = e.target.song.value.toLowerCase(),
-        // let $artistTemplate = "",
-        //     $songTemplate = "",
-        //     artistApi = `https://theaudiodb.com/api/v1/json/2/search.php?s=${artist}`,
-        //     songApi = `https://api.lyrics.ovh/v1/${artist}/${song}`,
-        //     artistFetch = fetch(artistApi),
-        //     songFetch = fetch(songApi),
-        //     //destructuracion
-        //     [artistRes, songRes] = await Promise.all([artistFetch, songFetch]),
-        //     artistData = await artistRes.json(),
-        //     songData = await songRes.json();
-
-            // localstorage
-            // localStorage.setItem("art", artistData);
-            // localStorage.setItem("sng", songData);
-        
-        // console.log(artistData, songData);
-        //window.location = await "/music-art.html";
-        
-        // console.log(artistRes, songRes);
 
         artistApi = `https://theaudiodb.com/api/v1/json/2/search.php?s=${artist}`;
         songApi = `https://api.lyrics.ovh/v1/${artist}/${song}`;
-        
+
         let artistFetch = fetch(artistApi),
             songFetch = fetch(songApi),
-            //destructuracion
             [artistRes, songRes] = await Promise.all([artistFetch, songFetch]);
-        
+
         artistData = await artistRes.json(),
         songData = await songRes.json();
 
         console.log(artistData, songData);
-        // window.location = "/music-art.html";
-
+        
+        if (artistData.artists === null) {
+            // $error.innerHTML = `<p>No existe el interprete <span>${artist}</span></p>`;
+            $error.innerHTML = `<h2>No existe el interprete <mark>${artist}</mark></h2>`;
+            console.log("if (artistData.artists === null)");
+        } 
+        else if(songData.error){
+            //$error.innerHTML = `<h2>No existe la cancion <mark>${song}</mark></h2>`;
+            console.log("else if(songData.error)");
+        } else {
+            /* ARTIST */
+            //solo el primer resultado del arreglo
+            let art = artistData.artists[0];
+            $artistTemplate = `
+            <div class="center">
+            <h2 class="ff-anton artist-title">${art.strArtist.toUpperCase()}</h2>
+            <p class="ff-fira genre">${art.strGenre}</p>
+            </div>
+            <figure>
+            <img src="${art.strArtistThumb}" alt="Imagen de ${art.strArtist}" class="artist-img">
+            </figure>
+            <p class="space-letters ff-fira">${art.strBiographyEN}</p>
+            `;
+            /* SONG */
+            $songTemplate = `
+            <h2 class="ff-anton artist-title center">${song.toUpperCase()}</h2>
+            <blockquote class="space-letters ff-fira">${songData.lyrics}</blockquote>
+            `;
+            localStorage.setItem("artInfo", $artistTemplate);
+            localStorage.setItem("sngInfo", $songTemplate);
+            window.location = "/music-art.html";
+        }
+        $artist.innerHTML = localStorage.getItem("artInfo");
+        $song.innerHTML = localStorage.getItem("sngInfo");
     } catch (err) {
         console.log(err);
         let message = err.statusText || "Ocurrio un ERROR";
-        $error.innerHTML = `<p>ERROR ${err.status}: ${message}</p>`;
-        //este $loader.style.display = "none"
+        //$error.innerHTML = `<p>ERROR ${err.status}: ${message}</p>`;
+        // $loader.style.display = "none"
+        // localStorage.clear();
     }
 }
 
-const dataList = () => {
-    console.log("list");
-    console.log(artistData, songData);
-    // if (artistData.artists === null) {
-    //     $artistTemplate = `<h2>No existe el interprete <mark>${artist}</mark></h2>`;
-    // } else {
-    //     //solo el primer resultado del arreglo
-    //     let artist = artistData.artists[0];
-    //     $artistTemplate = `
-    //     <h2>${artist.strArtist}</h2>
-    //     <img src="${artist.strArtistThumb}" alt="Imagen de ${artist.strArtist}">
-    //     <p>${artist.intBornYear} - ${(artist.intDiedYear || "Presente")}</p>
-    //     <p>${artist.strCountry} - ${artist.strCountryCode}</p>
-    //     <p>${artist.strGenre} - ${artist.strStyle}</p>
-    //     <a href="http://${artist.strWebsite}" target="_blank">Sitio Web</a>
-    //         <p>${artist.strBiographyEN}</p>
-    //         `;
-    // }
-            
-    // if (songData.error) {
-    //     $songTemplate = `<h2>No existe la cancion <mark>${song}</mark></h2>`;
-    // } else {
-    //     $songTemplate = `
-    //     <h2>${song.toUpperCase()}</h2>
-    //     <blockquote>${songData.lyrics}</blockquote>
-    //     `;
-    // }
-
-        // if($artist){
-            //este $loader.style.display = "none";
-    // $artist.innerHTML = $artistTemplate;
-    // $song.innerHTML = $songTemplate;
-    // console.log($artist, $song);
-            // console.log(localStorage.getItem("sng"));
-        // }
+const showData = () => {
+    $artist.innerHTML = localStorage.getItem("artInfo");
+    $song.innerHTML = localStorage.getItem("sngInfo");
 }
 
-// if($artist){
-//     d.addEventListener("DOMContentLoaded", e => allData(localStorage.getItem("arti"),localStorage.getItem("son")));
-// }
 if($artist){
-    d.addEventListener("DOMContentLoaded", e => allData());
+    d.addEventListener("DOMContentLoaded", e => showData());
 }
+
+$home.addEventListener("click", e => {
+    e.preventDefault();
+    d.location.href = "/index.html";
+})

@@ -68,11 +68,13 @@ color: var(--color-light);
 .btn-search{
     outline: 0;
     border: 0;
-    padding: 8px 8px;
     background-color: var(--color-green);
     height: 38px;
     vertical-align: middle;
     cursor: pointer;
+}
+.btn-search img{
+    padding: 5px;
 }
 .search-container{
     margin-top: 12px;

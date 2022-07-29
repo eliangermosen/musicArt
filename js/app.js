@@ -32,6 +32,8 @@ if($form){
 const allData = async () => {
     try {
 
+        $loader.style.display = "flex";
+
         artistApi = `https://theaudiodb.com/api/v1/json/2/search.php?s=${artist}`;
         songApi = `https://api.lyrics.ovh/v1/${artist}/${song}`;
 
@@ -71,6 +73,7 @@ const allData = async () => {
             <h2 class="ff-anton artist-title center">${song.toUpperCase()}</h2>
             <blockquote class="space-letters ff-fira">${songData.lyrics}</blockquote>
             `;
+            $loader.style.display = "none";
             localStorage.setItem("artInfo", $artistTemplate);
             localStorage.setItem("sngInfo", $songTemplate);
             window.location = "/music-art.html";
@@ -80,8 +83,9 @@ const allData = async () => {
     } catch (err) {
         console.log(err);
         let message = err.statusText || "Ocurrio un ERROR";
-        //$error.innerHTML = `<p>ERROR ${err.status}: ${message}</p>`;
-        // $loader.style.display = "none"
+        // $error.innerHTML = `<p>ERROR ${err.status}: ${message}</p>`;
+        $loader.style.display = "none";
+        $error.innerHTML = `<p class="difference">Artist and Song doesn't match</p>`;
         // localStorage.clear();
     }
 }

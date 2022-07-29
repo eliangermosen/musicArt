@@ -1,4 +1,5 @@
 const d = document,
+    $home = d.querySelector(".musicart")
     $form = d.getElementById("song-search"),
     $loader = d.querySelector(".loader"),
     $error = d.querySelector(".error"),
@@ -61,15 +62,17 @@ const allData = async () => {
             //solo el primer resultado del arreglo
             let art = artistData.artists[0];
             $artistTemplate = `
+            <div class="center">
             <h2 class="ff-anton artist-title">${art.strArtist.toUpperCase()}</h2>
             <p class="ff-fira genre">${art.strGenre}</p>
+            </div>
             <img src="${art.strArtistThumb}" alt="Imagen de ${art.strArtist}" class="artist-img">
-            <p class="biography ff-fira">${art.strBiographyEN}</p>
+            <p class="space-letters ff-fira">${art.strBiographyEN}</p>
             `;
             /* SONG */
             /*$songTemplate = `
-            <h2 class="song-title">${song.toUpperCase()}</h2>
-            <blockquote class="song-lyrics">${songData.lyrics}</blockquote>
+            <h2 class="ff-anton artist-title">${song.toUpperCase()}</h2>
+            <blockquote class="space-letters ff-fira">${songData.lyrics}</blockquote>
             `;*/
             console.log("else");
             localStorage.setItem("artInfo", $artistTemplate)
@@ -99,3 +102,8 @@ const probando = () => {
 if($artist){
     d.addEventListener("DOMContentLoaded", e => probando());
 }
+
+$home.addEventListener("click", e => {
+    e.preventDefault();
+    d.location.href = "/index.html";
+})

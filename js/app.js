@@ -76,7 +76,7 @@ const allData = async () => {
             $loader.style.display = "none";
             localStorage.setItem("artInfo", $artistTemplate);
             localStorage.setItem("sngInfo", $songTemplate);
-            window.location = "/music-art.html";
+            window.location = "/musicArt/music-art.html";
         }
         $artist.innerHTML = localStorage.getItem("artInfo");
         $song.innerHTML = localStorage.getItem("sngInfo");
@@ -101,5 +101,5 @@ if($artist){
 
 $home.addEventListener("click", e => {
     e.preventDefault();
-    d.location.href = "/index.html";
+    d.location.href = "/musicArt";
 })

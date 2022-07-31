@@ -47,7 +47,7 @@ color: var(--color-light);
     margin-left: 20px;
 }
 .fs-h2{
-    font-size: 48px;
+    font-size: 42px;
     letter-spacing: 1px;
     text-align: center;
 }
@@ -222,6 +222,10 @@ blockquote{
     }
     .btn-search {
         width: 100px;
+    }
+    main .content>* {
+        padding: 1rem;
+        flex-basis: 50%;
     }
 }
 @media screen and (max-width: 400px) {
